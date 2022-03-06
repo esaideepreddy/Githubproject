@@ -3,5 +3,5 @@ FROM ubuntu
 MAINTAINER esaideep.reddy25@gmail.com 
 
 RUN apt-get update 
-RUN apt-get install –y nginx 
+RUN apt-get install nginx 
 CMD [“echo”,”Image created”] 
