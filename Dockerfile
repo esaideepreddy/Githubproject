@@ -1,7 +1,25 @@
-##This is a sample Image 
-FROM ubuntu 
-MAINTAINER esaideep.reddy25@gmail.com 
+FROM centos:7
 
-RUN apt-get update 
-RUN apt-get install -y nginx 
-CMD [“echo”,”Image created”] 
+MAINTAINER saideep
+
+LABEL Remarks="This is a dockerfile example for Centos system"
+
+RUN yum -y update && \
+
+yum -y install httpd && \
+
+yum clean all
+
+COPY data/httpd.conf /etc/httpd/conf/httpd.conf
+
+ADD data/html.tar.gz /var/www/html/
+
+EXPOSE 80
+
+ENV HOME /root
+
+WORKDIR /root
+
+ENTRYPOINT ["ping"]
+
+CMD ["google.com"]
