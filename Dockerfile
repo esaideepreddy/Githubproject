@@ -1,25 +1,13 @@
-FROM centos:7
+# syntax=docker/dockerfile:1
 
-MAINTAINER saideep
+FROM openjdk:16-alpine3.13
 
-LABEL Remarks="This is a dockerfile example for Centos system"
+WORKDIR /app
 
-RUN yum -y update && \
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN ./mvnw dependency:go-offline
 
-yum -y install httpd && \
+COPY src ./src
 
-yum clean all
-
-COPY data/httpd.conf /etc/httpd/conf/httpd.conf
-
-ADD data/html.tar.gz /var/www/html/
-
-EXPOSE 80
-
-ENV HOME /root
-
-WORKDIR /root
-
-ENTRYPOINT ["ping"]
-
-CMD ["google.com"]
+CMD ["./mvnw", "spring-boot:run"]
