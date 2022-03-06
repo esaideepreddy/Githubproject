@@ -1,31 +1,7 @@
-#
-# Each instruction in this file generates a new layer that gets pushed to your local image cache
-#
+FROM python:3
 
-#
-# Lines preceeded by # are regarded as comments and ignored
-#
+ADD my_script.py /
 
-#
-# The line below states we will base our new image on the Latest Official Ubuntu 
-FROM ubuntu:latest
+RUN pip install pystrich
 
-#
-# Identify the maintainer of an image
-LABEL maintainer="myname@somecompany.com"
-
-#
-# Update the image to the latest packages
-RUN apt-get update && apt-get upgrade -y
-
-#
-# Install NGINX to test.
-RUN apt-get install nginx -y
-
-#
-# Expose port 80
-EXPOSE 80
-
-#
-# Last is the actual command to start up NGINX within our Container
-CMD ["nginx", "-g", "daemon off;"]
+CMD [ "python", "./my_script.py" ]
