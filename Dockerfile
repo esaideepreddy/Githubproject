@@ -1,5 +1,8 @@
-# syntax=docker/dockerfile:1
-FROM ubuntu:18.04
-COPY . /app
-RUN make /app
-CMD python /app/app.py
+# Filename: Dockerfile 
+FROM node:10-alpine
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]
